@@ -1,8 +1,11 @@
 import React from 'react'
+import RegisterUser from './components/RegisterUser'
 
 const App = () => {
   return (
-    <div>App</div>
+    <div>
+      <RegisterUser/>
+    </div>
   )
 }
 
