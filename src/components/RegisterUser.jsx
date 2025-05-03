@@ -17,14 +17,26 @@ const RegisterUser = () => {
     });
   };
 
-  const handleSubmitRegiserUser = (e) => {
+  const handleSubmitRegisterUser = async (e) => {
     e.preventDefault();
-    axios.post("http://localhost:3000/api/user/register", formData);
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/users/register",
+        formData
+      );
+
+      console.log("User registered:", response.data);
+    } catch (error) {
+      console.error(
+        "Registration error:",
+        error.response?.data || error.message
+      );
+    }
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmitRegiserUser}>
+      <form onSubmit={handleSubmitRegisterUser}>
         <label htmlFor="username">Username</label>
         <input
           type="text"
