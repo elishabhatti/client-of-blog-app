@@ -28,7 +28,7 @@ const LoginUser = () => {
   };
 
   return (
-    <div className="bg-white flex justify-center gap-10 items-center mt-20 p-5 text-gray-800">
+    <div className="bg-white flex justify-center gap-10 items-center pt-30 p-5 text-gray-800">
       <div className="w-[35%]">
         <img
           className="rounded-2xl w-full"

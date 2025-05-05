@@ -97,7 +97,7 @@ const Home = () => {
   ];
 
   return (
-    <div className="flex max-w-7xl mx-auto px-4 py-6 gap-10">
+    <div className="flex pt-20 max-w-7xl mx-auto px-4 py-6 gap-10 flex-wrap lg:flex-nowrap">
       <div className="flex-1 space-y-6">
         {posts.map((post) => (
           <div
@@ -123,10 +123,10 @@ const Home = () => {
                   <Star className="w-4 h-4" /> {post.date}
                 </span>
                 <span className="flex items-center gap-1">
-                  <Eye className="w-4 h-4" /> 264
+                  <Eye className="w-4 h-4" /> {post.views}
                 </span>
                 <span className="flex items-center gap-1">
-                  <MessageCircle className="w-4 h-4" /> 13
+                  <MessageCircle className="w-4 h-4" /> {post.comments}
                 </span>
                 <span className="ml-auto flex items-center gap-4">
                   <button>
@@ -150,7 +150,7 @@ const Home = () => {
       </div>
 
       {/* Sidebar */}
-      <aside className="w-[30%]">
+      <aside className="w-full lg:w-[30%] mt-6 lg:mt-0">
         <h3 className="text-lg font-semibold mb-4">Staff Picks</h3>
         <div className="space-y-5 mb-6">
           {staffPicks.map((pick) => (
