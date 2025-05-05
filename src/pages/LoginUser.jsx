@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const LoginUser = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const handleInput = (e) => {
     const name = e.target.name;
@@ -16,19 +20,18 @@ const LoginUser = () => {
   const handleSubmitRegisterUser = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/users/login",
-        formData
-      );
+      await axios.post("http://localhost:3000/api/users/login", formData);
       setFormData({ email: "", password: "" });
-      console.log("User Login:", response.data);
+      navigate("/");
+      toast.success("User Logged In!");
     } catch (error) {
+      toast.error(error.message);
       console.error("Login error:", error.response?.data || error.message);
     }
   };
 
   return (
-    <div className="bg-white flex justify-center gap-10 items-center pt-30 p-5 text-gray-800">
+    <div className="bg-white flex justify-center gap-10 items-center pt-40 p-5 text-gray-800">
       <div className="w-[35%]">
         <img
           className="rounded-2xl w-full"

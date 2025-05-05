@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const RegisterUser = () => {
   const [formData, setFormData] = useState({
@@ -7,6 +9,8 @@ const RegisterUser = () => {
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const handleInput = (e) => {
     const name = e.target.name;
@@ -18,21 +22,26 @@ const RegisterUser = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/users/register",
-        formData
+        "http://localhost:3000/api/users/register", // Correct backend URL
+        JSON.stringify(formData), // Stringify the form data
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json", // Required for JSON data
+          },
+        }
       );
+
       setFormData({ username: "", email: "", password: "" });
-      console.log("User registered:", response.data);
+      navigate("/");
+      toast.success("User Registered!");
     } catch (error) {
-      console.error(
-        "Registration error:",
-        error.response?.data || error.message
-      );
+      toast.error(error.message);
+      console.error("Registration error:", error);
     }
   };
-
   return (
-    <div className="bg-white flex justify-center gap-10 pt-30 items-center p-5 text-gray-800">
+    <div className="bg-white flex justify-center gap-10 pt-40 items-center p-5 text-gray-800">
       <div className="w-[35%]">
         <img
           className="rounded-2xl w-full"

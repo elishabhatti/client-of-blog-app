@@ -9,9 +9,13 @@ const Navbar = () => {
         <h1 className="text-2xl font-bold">Blog App</h1>
         <nav>
           <ul className="flex gap-6 text-base font-medium">
-            <li className="flex gap-3">
+            <li>
+                <NavLink to="/write" className="hover:text-indigo-600">
+                <div className="flex gap-3">
               <SquarePen />
               Write
+                </div>
+                </NavLink>
             </li>
             <li>|</li>
             <li>
