@@ -11,10 +11,7 @@ const RegisterUser = () => {
   const handleInput = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmitRegisterUser = async (e) => {
@@ -24,13 +21,7 @@ const RegisterUser = () => {
         "http://localhost:3000/api/users/register",
         formData
       );
-
-      setFormData({
-        username: "",
-        email: "",
-        password: "",
-      });
-
+      setFormData({ username: "", email: "", password: "" });
       console.log("User registered:", response.data);
     } catch (error) {
       console.error(
@@ -41,22 +32,22 @@ const RegisterUser = () => {
   };
 
   return (
-    <div className="bg-gray-950 flex justify-center gap-10 items-center min-h-screen px-4">
+    <div className="bg-white flex justify-center gap-10 mt-20 items-center p-5 text-gray-800">
       <div className="w-[35%]">
         <img
-          className="rounded-2xl w-[100%]"
+          className="rounded-2xl w-full"
           src="/images/sign-up.jpg"
-          alt="Registraion Illustration"
+          alt="Registration Illustration"
         />
       </div>
-      <form className="w-[45%]  space-y-4" onSubmit={handleSubmitRegisterUser}>
-        <h1 className="text-white text-3xl ">Registration Form</h1>
+      <form className="w-[45%] space-y-4" onSubmit={handleSubmitRegisterUser}>
+        <h1 className="text-3xl font-semibold">Registration Form</h1>
         <div>
-          <label className="text-gray-300 block mb-1" htmlFor="username">
+          <label className="block mb-1 font-medium" htmlFor="username">
             Username
           </label>
           <input
-            className="w-full bg-gray-900 border border-gray-700 text-white px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full bg-white border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
             type="text"
             name="username"
             value={formData.username}
@@ -67,11 +58,11 @@ const RegisterUser = () => {
         </div>
 
         <div>
-          <label className="text-gray-300 block mb-1" htmlFor="email">
+          <label className="block mb-1 font-medium" htmlFor="email">
             Email
           </label>
           <input
-            className="w-full bg-gray-900 border border-gray-700 text-white px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full bg-white border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
             type="email"
             name="email"
             value={formData.email}
@@ -82,11 +73,11 @@ const RegisterUser = () => {
         </div>
 
         <div>
-          <label className="text-gray-300 block mb-1" htmlFor="password">
+          <label className="block mb-1 font-medium" htmlFor="password">
             Password
           </label>
           <input
-            className="w-full bg-gray-900 border border-gray-700 text-white px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full bg-white border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
             type="password"
             name="password"
             value={formData.password}
