@@ -17,16 +17,21 @@ const LoginUser = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmitRegisterUser = async (e) => {
+  const handleSubmitLoginUser = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3000/api/users/login", formData);
+      // Make sure to include withCredentials: true for cookies
+      const response = await axios.post("http://localhost:3000/api/users/login", formData, {
+        withCredentials: true,  // This ensures cookies are sent with the request
+      });
+
       setFormData({ email: "", password: "" });
-      navigate("/");
+      navigate("/");  // Redirect after successful login
       toast.success("User Logged In!");
     } catch (error) {
-      toast.error(error.message);
-      console.error("Login error:", error.response?.data || error.message);
+      const errorMessage = error.response?.data?.error || error.message;
+      toast.error(errorMessage);  // Show error message from response
+      console.error("Login error:", errorMessage);
     }
   };
 
@@ -39,7 +44,7 @@ const LoginUser = () => {
           alt="Login Illustration"
         />
       </div>
-      <form className="w-[45%] space-y-4" onSubmit={handleSubmitRegisterUser}>
+      <form className="w-[45%] space-y-4" onSubmit={handleSubmitLoginUser}>
         <h1 className="text-3xl font-semibold">Login Form</h1>
 
         <div>

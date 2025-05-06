@@ -21,7 +21,7 @@ const RegisterUser = () => {
   const handleSubmitRegisterUser = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
+      await axios.post(
         "http://localhost:3000/api/users/register", // Correct backend URL
         JSON.stringify(formData), // Stringify the form data
         {
