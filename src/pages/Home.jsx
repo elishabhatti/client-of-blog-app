@@ -109,7 +109,11 @@ const Home = () => {
               </div>
               <div className="w-48 h-28 flex-shrink-0">
                 <img
-                  src={post.thumbnailUrl}
+                  src={
+                    post.thumbnailUrl.length === 0
+                      ? "https://img.freepik.com/free-vector/abstract-red-circle-black-background-technology_1142-9839.jpg"
+                      : post.thumbnailUrl
+                  }
                   alt="Thumbnail"
                   className="w-full h-full object-cover rounded-md"
                 />
