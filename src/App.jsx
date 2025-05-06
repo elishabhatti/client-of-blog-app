@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import Navbar from './components/Navbar'
 import LoginUser from './pages/LoginUser'
 import WriteArticle from './pages/WriteArticle'
+import LogoutUser from './pages/LogoutUser'
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Route path="/" element={<Home/>}/>
         <Route path="/register" element={<RegisterUser/>}/>
         <Route path="/login" element={<LoginUser/>}/>
+        <Route path="/logout" element={<LogoutUser/>}/>
         <Route path="/write" element={<WriteArticle/>}/>
       </Routes>
       </BrowserRouter>

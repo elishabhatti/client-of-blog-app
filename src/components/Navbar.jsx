@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { SquarePen } from "lucide-react";
 
+
 const Navbar = () => {
   return (
     <div className="bg-white text-gray-800 fixed w-full px-8 p-3 shadow-md">
@@ -10,12 +11,12 @@ const Navbar = () => {
         <nav>
           <ul className="flex gap-6 text-base font-medium">
             <li>
-                <NavLink to="/write" className="hover:text-indigo-600">
+              <NavLink to="/write" className="hover:text-indigo-600">
                 <div className="flex gap-3">
-              <SquarePen />
-              Write
+                  <SquarePen />
+                  Write
                 </div>
-                </NavLink>
+              </NavLink>
             </li>
             <li>|</li>
             <li>
