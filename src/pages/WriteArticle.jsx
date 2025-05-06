@@ -1,49 +1,52 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const WriteArticle = () => {
   const [article, setArticle] = useState({
-    title: '',
-    subtitle: '',
-    description: '',
+    title: "",
+    subtitle: "",
+    description: "",
     duration: 0,
     rating: 0,
-    completionStatus: false
+    thumbnailUrl: "",
   });
 
+  const navigate = useNavigate();
 
   const handleArticleChange = (e) => {
     const { name, value } = e.target;
-    setArticle(prev => ({
+    setArticle((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const userResponse = await axios.post('/api/users', user);
-      
-      const articleResponse = await axios.post('/api/articles', {
-        ...article,
-        comments: comment ? [{
-          text: comment,
-          user: userResponse.data._id
-        }] : []
-      });
 
-      console.log('Article created:', articleResponse.data);
-      // Reset form or redirect
+    try {
+      await axios.post(
+        "http://localhost:3000/api/articles/addArticle",
+        { ...article },
+        {
+          withCredentials: true,
+        }
+      );
+
+      navigate("/");
+      toast.success("Article created");
     } catch (error) {
-      console.error('Error submitting:', error);
+      toast.error("Error submitting:", error.response?.data || error.message);
+      console.error(error);
     }
   };
 
   return (
     <div className="max-w-2xl pt-30 mx-auto p-4">
       <h1 className="text-2xl font-bold mb-6">Create New Article</h1>
-      
+
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Article Fields */}
         <div className="space-y-2">
@@ -59,7 +62,7 @@ const WriteArticle = () => {
               required
             />
           </div>
-          
+
           <div>
             <label className="block">Subtitle*</label>
             <input
@@ -71,7 +74,7 @@ const WriteArticle = () => {
               required
             />
           </div>
-          
+
           <div>
             <label className="block">Description*</label>
             <textarea
@@ -83,7 +86,7 @@ const WriteArticle = () => {
               required
             />
           </div>
-          
+
           <div className="flex space-x-4">
             <div className="w-1/2">
               <label className="block">Duration (minutes)</label>
@@ -95,7 +98,7 @@ const WriteArticle = () => {
                 className="w-full p-2 border rounded"
               />
             </div>
-            
+
             <div className="w-1/2">
               <label className="block">Rating</label>
               <input
@@ -108,6 +111,17 @@ const WriteArticle = () => {
                 className="w-full p-2 border rounded"
               />
             </div>
+          </div>
+          <div>
+            <label className="block">Add Thumbnail Url:</label>
+            <input
+              type="url"
+              name="thumbnailUrl"
+              value={article.thumbnailUrl}
+              onChange={handleArticleChange}
+              className="w-full p-2 border rounded"
+              required
+            />
           </div>
         </div>
 

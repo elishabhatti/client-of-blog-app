@@ -1,65 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Bookmark, MessageCircle, Eye, Star } from "lucide-react";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const Home = () => {
-  const posts = [
-    {
-      id: 1,
-      title: "The Language of the Malaysian Palace",
-      content: "Bahasa Istana: A way of speech reserved for royalty.",
-      author: {
-        name: "Zuphayri",
-        avatar: "https://i.pravatar.cc/40?img=3",
-      },
-      date: "Apr 22",
-      views: 264,
-      comments: 13,
-      thumbnailUrl:
-        "https://miro.medium.com/v2/resize:fit:1100/format:webp/0*Z4QsIrj9c7mOajq-", // Added thumbnail URL
-    },
-    {
-      id: 2,
-      title: "Understanding AI Ethics",
-      content: "What are the ethical implications of artificial intelligence?",
-      author: {
-        name: "Jane Doe",
-        avatar: "https://i.pravatar.cc/40?img=5",
-      },
-      date: "Apr 24",
-      views: 310,
-      comments: 8,
-      thumbnailUrl:
-        "https://miro.medium.com/v2/resize:fit:2000/format:webp/0*DyZtxCM4swKMDe7Y", // Added thumbnail URL
-    },
-    {
-      id: 3,
-      title: "Exploring Quantum Computing",
-      content: "Quantum computing will revolutionize technology—here’s how.",
-      author: {
-        name: "Ali Musa",
-        avatar: "https://i.pravatar.cc/40?img=7",
-      },
-      date: "Apr 26",
-      views: 178,
-      comments: 5,
-      thumbnailUrl:
-        "https://miro.medium.com/v2/format:webp/1*tWlY7uF74XybqyRVFwIjyA.jpeg", // Added thumbnail URL
-    },
-    {
-      id: 4,
-      title: "The Rise of Indie Game Developers",
-      content: "Indie developers are shaping the future of gaming.",
-      author: {
-        name: "Sara Lim",
-        avatar: "https://i.pravatar.cc/40?img=8",
-      },
-      date: "Apr 27",
-      views: 422,
-      comments: 21,
-      thumbnailUrl:
-        "https://miro.medium.com/v2/resize:fit:1100/format:webp/0*9c-L1OoddDbxOZEF", // Added thumbnail URL
-    },
-  ];
+  useEffect(() => {
+    getAllArticles();
+  }, []);
 
   const staffPicks = [
     {
@@ -96,57 +43,82 @@ const Home = () => {
     "AWS",
   ];
 
+  const [articles, setArticles] = useState([]);
+
+  const getAllArticles = async () => {
+    try {
+      const articles = await axios.get(
+        "http://localhost:3000/api/articles/getArticle",
+        {
+          withCredentials: true,
+        }
+      );
+
+      setArticles(articles.data.message);
+    } catch (error) {
+      toast.error(
+        "Error While Get Articles:",
+        error.response?.data || error.message
+      );
+      console.error(error);
+    }
+  };
+
   return (
     <div className="flex pt-20 max-w-7xl mx-auto px-4 py-6 gap-10 flex-wrap lg:flex-nowrap">
       <div className="flex-1 space-y-6">
-        {posts.map((post) => (
-          <div
-            key={post.id}
-            className="flex justify-between items-start bg-white p-6 border-b border-gray-200 hover:bg-gray-50 transition"
-          >
-            <div className="flex-1 pr-4">
-              <div className="text-sm text-gray-500 mb-1">
-                <span className="bg-pink-100 text-pink-600 px-2 py-0.5 rounded-full text-xs font-medium mr-2">
-                  LAB
-                </span>
-                In Language Lab by{" "}
-                <span className="font-medium text-gray-700">
-                  {post.author.name}
-                </span>
+        {articles && articles.length > 0 ? (
+          articles.map((post) => (
+            <div
+              key={post._id}
+              className="flex justify-between items-start bg-white p-6 border-b border-gray-200 hover:bg-gray-50 transition"
+            >
+              <div className="flex-1 pr-4">
+                <div className="text-sm text-gray-500 mb-1">
+                  <span className="bg-pink-100 text-pink-600 px-2 py-0.5 rounded-full text-xs font-medium mr-2">
+                    LAB
+                  </span>
+                  In Language Lab by{" "}
+                  <span className="font-medium text-gray-700">
+                    {post.userId || "Unknown"}
+                  </span>
+                </div>
+                <h2 className="text-lg font-bold text-gray-900 mb-1">
+                  {post.title}
+                </h2>
+                <p className="text-gray-600 text-sm mb-3">{post.description}</p>
+                <div className="flex items-center text-sm text-gray-500 gap-4">
+                  <span className="flex items-center gap-1">
+                    <Star className="w-4 h-4" /> {post.date?.split("T")[0]}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Eye className="w-4 h-4" /> {post.views || 0}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <MessageCircle className="w-4 h-4" /> {post.comments.length}
+                  </span>
+                  <span className="ml-auto flex items-center gap-4">
+                    <button>
+                      <Bookmark className="w-4 h-4" />
+                    </button>
+                    <button>
+                      <span className="text-xl font-light">…</span>
+                    </button>
+                  </span>
+                </div>
               </div>
-              <h2 className="text-lg font-bold text-gray-900 mb-1">
-                {post.title}
-              </h2>
-              <p className="text-gray-600 text-sm mb-3">{post.content}</p>
-              <div className="flex items-center text-sm text-gray-500 gap-4">
-                <span className="flex items-center gap-1">
-                  <Star className="w-4 h-4" /> {post.date}
-                </span>
-                <span className="flex items-center gap-1">
-                  <Eye className="w-4 h-4" /> {post.views}
-                </span>
-                <span className="flex items-center gap-1">
-                  <MessageCircle className="w-4 h-4" /> {post.comments}
-                </span>
-                <span className="ml-auto flex items-center gap-4">
-                  <button>
-                    <Bookmark className="w-4 h-4" />
-                  </button>
-                  <button>
-                    <span className="text-xl font-light">…</span>
-                  </button>
-                </span>
+              <div className="w-48 h-28 flex-shrink-0">
+                <img
+                  src={post.thumbnailUrl}
+                  alt="Thumbnail"
+                  className="w-full h-full object-cover rounded-md"
+                />
               </div>
             </div>
-            <div className="w-48 h-28 flex-shrink-0">
-              <img
-                src={post.thumbnailUrl} // Use the thumbnail URL from the post object
-                alt="Thumbnail"
-                className="w-full h-full object-cover rounded-md"
-              />
-            </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p className="text-gray-500 text-center">No articles found.</p>
+        )}
       </div>
 
       {/* Sidebar */}
