@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../store/auth";
 
 const LoginUser = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const { storeTokenIns } = useAuth();
 
   const navigate = useNavigate();
 
@@ -20,17 +23,22 @@ const LoginUser = () => {
   const handleSubmitLoginUser = async (e) => {
     e.preventDefault();
     try {
-      // Make sure to include withCredentials: true for cookies
-      const response = await axios.post("http://localhost:3000/api/users/login", formData, {
-        withCredentials: true,  // This ensures cookies are sent with the request
-      });
+      const response = await axios.post(
+        "http://localhost:3000/api/users/login",
+        formData,
+        {
+          withCredentials: true,
+        }
+      );
 
+      storeTokenIns(response.data.token);
       setFormData({ email: "", password: "" });
-      navigate("/");  // Redirect after successful login
+
+      navigate("/");
       toast.success("User Logged In!");
     } catch (error) {
       const errorMessage = error.response?.data?.error || error.message;
-      toast.error(errorMessage);  // Show error message from response
+      toast.error(errorMessage);
       console.error("Login error:", errorMessage);
     }
   };

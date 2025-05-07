@@ -22,24 +22,23 @@ const RegisterUser = () => {
     e.preventDefault();
     try {
       await axios.post(
-        "http://localhost:3000/api/users/register", // Correct backend URL
-        JSON.stringify(formData), // Stringify the form data
+        "http://localhost:3000/api/users/register",
+        JSON.stringify(formData),
         {
           withCredentials: true,
-          headers: {
-            "Content-Type": "application/json", // Required for JSON data
-          },
+          headers: { "Content-Type": "application/json" },
         }
       );
-
-      setFormData({ username: "", email: "", password: "" });
       navigate("/");
+      setFormData({ username: "", email: "", password: "" });
+
       toast.success("User Registered!");
     } catch (error) {
       toast.error(error.message);
       console.error("Registration error:", error);
     }
   };
+
   return (
     <div className="bg-white flex justify-center gap-10 pt-40 items-center p-5 text-gray-800">
       <div className="w-[35%]">

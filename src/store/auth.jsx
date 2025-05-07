@@ -20,8 +20,12 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const storeTokenIns = (token) => {
+    localStorage.setItem("token", token);
+  };
+
   return (
-    <AuthContext.Provider value={{ LogoutUser }}>
+    <AuthContext.Provider value={{ LogoutUser, storeTokenIns }}>
       {children}
     </AuthContext.Provider>
   );
