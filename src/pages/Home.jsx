@@ -55,7 +55,7 @@ const Home = () => {
       );
 
       setArticles(articles.data.message);
-    } catch (error) {
+      } catch (error) {
       toast.error(
         "Error While Get Articles:",
         error.response?.data || error.message

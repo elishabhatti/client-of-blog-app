@@ -1,9 +1,10 @@
 import axios from "axios";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const [token, setToken] = useState(localStorage.getItem("token"));
   const LogoutUser = async () => {
     try {
       const response = await axios.post(
@@ -12,6 +13,8 @@ export const AuthProvider = ({ children }) => {
         { withCredentials: true }
       );
       console.log("Logout successful:", response.data);
+      setToken("");
+      return localStorage.removeItem("token");
     } catch (error) {
       console.error(
         "Logout failed:",
@@ -20,12 +23,15 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  let isLoggedIn = !!token;
+  console.log("isLoggedIN ", isLoggedIn);
+
   const storeTokenIns = (token) => {
     localStorage.setItem("token", token);
   };
 
   return (
-    <AuthContext.Provider value={{ LogoutUser, storeTokenIns }}>
+    <AuthContext.Provider value={{ LogoutUser, storeTokenIns, isLoggedIn }}>
       {children}
     </AuthContext.Provider>
   );
