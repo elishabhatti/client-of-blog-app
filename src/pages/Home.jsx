@@ -55,7 +55,14 @@ const Home = () => {
       );
 
       setArticles(articles.data.message);
-      } catch (error) {
+      console.log(articles.data.userId);
+      const getUsername = await axios.get(
+        "http://localhost:3000/api/users/username",
+        {
+          withCredentials: true,
+        }
+      );
+    } catch (error) {
       toast.error(
         "Error While Get Articles:",
         error.response?.data || error.message
@@ -86,6 +93,9 @@ const Home = () => {
                 <h2 className="text-lg font-bold text-gray-900 mb-1">
                   {post.title}
                 </h2>
+                <h3 className="text-sm font-bold text-gray-900 mb-1">
+                  {post.subtitle}
+                </h3>
                 <p className="text-gray-600 text-sm mb-3">{post.description}</p>
                 <div className="flex items-center text-sm text-gray-500 gap-4">
                   <span className="flex items-center gap-1">

@@ -52,12 +52,12 @@ const LoginUser = () => {
           alt="Login Illustration"
         />
       </div>
-      <form className="w-[45%] space-y-4" onSubmit={handleSubmitLoginUser}>
+      <form className="w-[40%] space-y-4" onSubmit={handleSubmitLoginUser}>
         <h1 className="text-3xl font-semibold">Login Form</h1>
 
         <div>
           <label className="block mb-1 font-medium" htmlFor="email">
-            Email
+            Email:
           </label>
           <input
             className="w-full bg-white border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -72,7 +72,7 @@ const LoginUser = () => {
 
         <div>
           <label className="block mb-1 font-medium" htmlFor="password">
-            Password
+            Password:
           </label>
           <input
             className="w-full bg-white border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
