@@ -54,8 +54,8 @@ const Home = () => {
         }
       );
 
-      console.log(articles.data.username);
       setArticles(articles.data.message);
+      
     } catch (error) {
       toast.error(
         "Error While Get Articles:",
@@ -81,7 +81,7 @@ const Home = () => {
                   </span>
                   In Language Lab by{" "}
                   <span className="font-medium text-gray-700">
-                    {post.username || "Unknown"}
+                    {post.username}
                   </span>
                 </div>
                 <h2 className="text-lg font-bold text-gray-900 mb-1">
