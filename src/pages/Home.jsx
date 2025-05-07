@@ -54,14 +54,8 @@ const Home = () => {
         }
       );
 
+      console.log(articles.data.username);
       setArticles(articles.data.message);
-      console.log(articles.data.userId);
-      const getUsername = await axios.get(
-        "http://localhost:3000/api/users/username",
-        {
-          withCredentials: true,
-        }
-      );
     } catch (error) {
       toast.error(
         "Error While Get Articles:",
@@ -87,7 +81,7 @@ const Home = () => {
                   </span>
                   In Language Lab by{" "}
                   <span className="font-medium text-gray-700">
-                    {post.userId || "Unknown"}
+                    {post.username || "Unknown"}
                   </span>
                 </div>
                 <h2 className="text-lg font-bold text-gray-900 mb-1">
