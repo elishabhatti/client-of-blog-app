@@ -72,7 +72,7 @@ const Home = () => {
           withCredentials: true,
         }
       );
-      toast.success(response.data.message)
+      toast.success(response.data.message);
     } catch (error) {
       toast.error(
         error.response?.data?.message || error.message || "Error saving article"
@@ -81,12 +81,17 @@ const Home = () => {
     }
   };
 
+  const ShowOnlyOneArticle = (id) => {
+    console.log(id);
+  };
+
   return (
     <div className="flex pt-20 max-w-7xl mx-auto px-4 py-6 gap-10 flex-wrap lg:flex-nowrap">
       <div className="flex-1 space-y-6">
         {articles && articles.length > 0 ? (
-          articles.map((post) => (
+          [...articles].reverse().map((post) => (
             <div
+              onClick={() => ShowOnlyOneArticle(post._id)}
               key={post._id}
               className="flex justify-between items-start bg-white p-6 border-b border-gray-200 hover:bg-gray-50 transition"
             >
