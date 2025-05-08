@@ -1,0 +1,11 @@
+/* example: override success toast */
+.Toastify__toast--success {
+  background-color: #fff; /* your custom green */
+  color: white;
+}
+
+/* or for general toasts */
+.Toastify__toast {
+  background-color: #333;
+  color: #fff;
+}

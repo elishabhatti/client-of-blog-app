@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useAuth } from "../store/auth";
 
 const RegisterUser = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ const RegisterUser = () => {
     email: "",
     password: "",
   });
+  const { storeTokenIns } = useAuth();
 
   const navigate = useNavigate();
 
@@ -21,7 +23,7 @@ const RegisterUser = () => {
   const handleSubmitRegisterUser = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(
+      const response = await axios.post(
         "http://localhost:3000/api/users/register",
         JSON.stringify(formData),
         {
@@ -29,6 +31,7 @@ const RegisterUser = () => {
           headers: { "Content-Type": "application/json" },
         }
       );
+      storeTokenIns(response.data.token);
       navigate("/");
       setFormData({ username: "", email: "", password: "" });
 

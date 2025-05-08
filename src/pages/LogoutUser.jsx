@@ -6,12 +6,9 @@ import { toast } from "react-toastify";
 const LogoutUser = () => {
   const { LogoutUser } = useAuth();
 
-  toast.success("Logout!");
   useEffect(() => {
-    const performLogout = async () => {
-      await LogoutUser();
-    };
-    performLogout();
+    toast.success("Logout!");
+    LogoutUser();
   }, [LogoutUser]);
 
   return (

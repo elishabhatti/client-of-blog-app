@@ -3,59 +3,23 @@ import { Bookmark, MessageCircle, Eye, Star } from "lucide-react";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-const Home = () => {
+const SavedArticle = () => {
   useEffect(() => {
     getAllArticles();
   }, []);
-
-  const staffPicks = [
-    {
-      id: 1,
-      title:
-        "Can You Spot Fake News? Many Can’t When Scored on a Validated Test",
-      author: "Andrea Romeo RN, BN",
-      avatar: "https://i.pravatar.cc/40?img=4",
-      date: "Apr 18",
-    },
-    {
-      id: 2,
-      title: "I worked for Pope Francis. Here is what he was really like.",
-      author: "Daniel B. Gallagher",
-      avatar: "https://i.pravatar.cc/40?img=5",
-      date: "Apr 21",
-    },
-    {
-      id: 3,
-      title: "My Notes App Is a Beautiful Mess of Creativity and Chaos",
-      author: "Vaibhavi Naik",
-      avatar: "https://i.pravatar.cc/40?img=6",
-      date: "Apr 16",
-    },
-  ];
-
-  const topics = [
-    "Relationships",
-    "Python",
-    "Cryptocurrency",
-    "Politics",
-    "Women",
-    "Fitness",
-    "AWS",
-  ];
 
   const [articles, setArticles] = useState([]);
 
   const getAllArticles = async () => {
     try {
       const articles = await axios.get(
-        "http://localhost:3000/api/articles/getArticle",
+        "http://localhost:3000/api/articles/saveArticle",
         {
           withCredentials: true,
         }
       );
-      console.log(articles);
-
-      setArticles(articles.data.message);
+      
+      setArticles(articles.data.articles);
     } catch (error) {
       toast.error(
         "Error While Get Articles:",
@@ -65,27 +29,10 @@ const Home = () => {
     }
   };
 
-  const handleSaveArticleSubmit = async (id) => {
-    try {
-      const response = await axios.post(
-        `http://localhost:3000/api/articles/saveArticle/${id}`,
-        {}, // no body data
-        {
-          withCredentials: true,
-        }
-      );
-      console.log("Article saved:", response.data);
-    } catch (error) {
-      toast.error(
-        error.response?.data?.message || error.message || "Error saving article"
-      );
-      console.error(error);
-    }
-  };
-
   return (
     <div className="flex pt-20 max-w-7xl mx-auto px-4 py-6 gap-10 flex-wrap lg:flex-nowrap">
-      <div className="flex-1 space-y-6">
+      <div className="flex-1 ">
+        <h1 className="text-2xl ml-6 font-bold">Saved Article</h1>
         {articles && articles.length > 0 ? (
           articles.map((post) => (
             <div
@@ -120,7 +67,7 @@ const Home = () => {
                     <MessageCircle className="w-4 h-4" /> {post.comments.length}
                   </span>
                   <span className="ml-auto flex items-center gap-4">
-                    <button onClick={() => handleSaveArticleSubmit(post._id)}>
+                    <button>
                       <Bookmark className="w-4 h-4" />
                     </button>
                     <button>
@@ -146,41 +93,8 @@ const Home = () => {
           <p className="text-gray-500 text-center">No articles found.</p>
         )}
       </div>
-
-      {/* Sidebar */}
-      <aside className="w-full lg:w-[30%] mt-6 lg:mt-0">
-        <h3 className="text-lg font-semibold mb-4">Staff Picks</h3>
-        <div className="space-y-5 mb-6">
-          {staffPicks.map((pick) => (
-            <div key={pick.id} className="text-sm">
-              <div className="flex items-center gap-2 mb-1">
-                <img
-                  src={pick.avatar}
-                  alt={pick.author}
-                  className="w-6 h-6 rounded-full"
-                />
-                <p className="text-gray-600">{pick.author}</p>
-              </div>
-              <p className="font-medium text-gray-900">{pick.title}</p>
-              <p className="text-xs text-gray-500">{pick.date}</p>
-            </div>
-          ))}
-        </div>
-
-        <h3 className="text-lg font-semibold mb-3">Recommended topics</h3>
-        <div className="flex flex-wrap gap-2">
-          {topics.map((topic, index) => (
-            <span
-              key={index}
-              className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm cursor-pointer hover:bg-gray-200 transition"
-            >
-              {topic}
-            </span>
-          ))}
-        </div>
-      </aside>
     </div>
   );
 };
 
-export default Home;
+export default SavedArticle;

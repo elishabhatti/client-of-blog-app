@@ -31,6 +31,12 @@ const Navbar = () => {
               </NavLink>
             </li>
 
+            <li>
+              <NavLink to="/save" className="hover:text-indigo-600">
+                Saved Articles
+              </NavLink>
+            </li>
+
             {!isLoggedIn && (
               <>
                 <li>

@@ -7,12 +7,11 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const LogoutUser = async () => {
     try {
-      const response = await axios.post(
+      await axios.post(
         "http://localhost:3000/api/users/logout",
         {},
         { withCredentials: true }
       );
-      console.log("Logout successful:", response.data);
       setToken("");
       return localStorage.removeItem("token");
     } catch (error) {

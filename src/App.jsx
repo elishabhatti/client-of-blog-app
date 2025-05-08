@@ -6,6 +6,7 @@ import Navbar from './components/Navbar'
 import LoginUser from './pages/LoginUser'
 import WriteArticle from './pages/WriteArticle'
 import LogoutUser from './pages/LogoutUser'
+import SaveArticle from './pages/SaveArticle'
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/login" element={<LoginUser/>}/>
         <Route path="/logout" element={<LogoutUser/>}/>
         <Route path="/write" element={<WriteArticle/>}/>
+        <Route path="/save" element={<SaveArticle/>}/>
       </Routes>
       </BrowserRouter>
     </div>
