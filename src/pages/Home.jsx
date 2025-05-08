@@ -53,8 +53,6 @@ const Home = () => {
           withCredentials: true,
         }
       );
-      console.log(articles);
-
       setArticles(articles.data.message);
     } catch (error) {
       toast.error(
@@ -74,7 +72,7 @@ const Home = () => {
           withCredentials: true,
         }
       );
-      console.log("Article saved:", response.data);
+      toast.success(response.data.message)
     } catch (error) {
       toast.error(
         error.response?.data?.message || error.message || "Error saving article"

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Bookmark, MessageCircle, Eye, Star } from "lucide-react";
+import { Bookmark, MessageCircle, Eye, Star, Delete } from "lucide-react";
 import { toast } from "react-toastify";
 import axios from "axios";
 
@@ -18,13 +18,31 @@ const SavedArticle = () => {
           withCredentials: true,
         }
       );
-      
+
       setArticles(articles.data.articles);
     } catch (error) {
       toast.error(
         "Error While Get Articles:",
         error.response?.data || error.message
       );
+      console.error(error);
+    }
+  };
+
+  const handleDeleteArticle = async (id) => {
+    try {
+      const res = await axios.post(
+        `http://localhost:3000/api/articles/deleteSavedArticle`,
+        { articleId: id },
+        { withCredentials: true }
+      );
+
+      toast.success(res.data.message);
+      setArticles((prevArticles) =>
+        prevArticles.filter((article) => article._id !== id)
+      );
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to remove article");
       console.error(error);
     }
   };
@@ -68,10 +86,10 @@ const SavedArticle = () => {
                   </span>
                   <span className="ml-auto flex items-center gap-4">
                     <button>
-                      <Bookmark className="w-4 h-4" />
-                    </button>
-                    <button>
                       <span className="text-xl font-light">…</span>
+                    </button>
+                    <button onClick={() => handleDeleteArticle(post._id)}>
+                      <Delete className="w-4 h-4" />
                     </button>
                   </span>
                 </div>
