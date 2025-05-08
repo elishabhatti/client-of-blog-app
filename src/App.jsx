@@ -7,6 +7,7 @@ import LoginUser from './pages/LoginUser'
 import WriteArticle from './pages/WriteArticle'
 import LogoutUser from './pages/LogoutUser'
 import SaveArticle from './pages/SaveArticle'
+import GetOneArticle from './pages/GetOneArticle'
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/logout" element={<LogoutUser/>}/>
         <Route path="/write" element={<WriteArticle/>}/>
         <Route path="/save" element={<SaveArticle/>}/>
+        <Route path="/article/:id" element={<GetOneArticle/>}/>
       </Routes>
       </BrowserRouter>
     </div>

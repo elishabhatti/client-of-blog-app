@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Bookmark, MessageCircle, Eye, Star } from "lucide-react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   useEffect(() => {
     getAllArticles();
   }, []);
+
+  const navigate = useNavigate();
 
   const staffPicks = [
     {
@@ -81,8 +84,24 @@ const Home = () => {
     }
   };
 
-  const ShowOnlyOneArticle = (id) => {
-    console.log(id);
+  const ShowOnlyOneArticle = async (id) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/articles/getOnlyOneArticle/${id}`,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(response);
+      toast.success(response.data.message);
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message ||
+          error.message ||
+          "Error Getting Article"
+      );
+      console.error(error);
+    }
   };
 
   return (
@@ -91,7 +110,7 @@ const Home = () => {
         {articles && articles.length > 0 ? (
           [...articles].reverse().map((post) => (
             <div
-              onClick={() => ShowOnlyOneArticle(post._id)}
+              onClick={() => navigate(`/article/${post._id}`)}
               key={post._id}
               className="flex justify-between items-start bg-white p-6 border-b border-gray-200 hover:bg-gray-50 transition"
             >
