@@ -112,7 +112,7 @@ const Home = () => {
             <div
               onClick={() => navigate(`/article/${post._id}`)}
               key={post._id}
-              className="flex justify-between items-start bg-white p-6 border-b border-gray-200 hover:bg-gray-50 transition"
+              className="flex cursor-pointer justify-between items-start bg-white p-6 border-b border-gray-200 hover:bg-gray-50 transition"
             >
               <div className="flex-1 pr-4">
                 <div className="text-sm text-gray-500 mb-1">

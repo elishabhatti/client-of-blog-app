@@ -76,14 +76,14 @@ const SavedArticle = () => {
                   </span>
                 </div>
                 <h2 className="text-lg font-bold text-gray-900 mb-1">
-                      {post.title.length >= 30
+                  {post.title.length >= 30
                     ? post.title.slice(0, 30) + "..."
                     : post.title}
                 </h2>
                 <h3 className="text-sm font-bold text-gray-900 mb-1">
-                  {post.subtitle.length >= 150 
-                  ? post.title.slice(0,150) + "..."
-                  : post.title }
+                  {post.subtitle.length >= 50
+                    ? post.title.slice(0, 50) + "..."
+                    : post.title}
                 </h3>
                 <div className="flex items-center text-sm text-gray-500 gap-4">
                   <span className="flex items-center gap-1">
