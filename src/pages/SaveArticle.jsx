@@ -10,7 +10,7 @@ const SavedArticle = () => {
   }, []);
 
   const navigate = useNavigate();
-  
+
   const [username, setUsername] = useState("");
   const [articles, setArticles] = useState([]);
 
@@ -23,8 +23,7 @@ const SavedArticle = () => {
         }
       );
 
-      // setUsername(
-      // );
+      setUsername(articles.data.articles[0].username);
       setArticles(articles.data.articles);
     } catch (error) {
       toast.error(
@@ -56,7 +55,9 @@ const SavedArticle = () => {
   return (
     <div className="flex pt-20 max-w-7xl mx-auto px-4 py-6 gap-10 flex-wrap lg:flex-nowrap">
       <div className="flex-1 ">
-        <h1 className="text-2xl ml-6 font-bold">Saved Article by </h1>
+        <h1 className="text-2xl ml-6 font-bold">
+          Saved Article by {username}{" "}
+        </h1>
         {articles && articles.length > 0 ? (
           articles.map((post) => (
             <div
@@ -75,10 +76,14 @@ const SavedArticle = () => {
                   </span>
                 </div>
                 <h2 className="text-lg font-bold text-gray-900 mb-1">
-                  {post.title}
+                      {post.title.length >= 30
+                    ? post.title.slice(0, 30) + "..."
+                    : post.title}
                 </h2>
                 <h3 className="text-sm font-bold text-gray-900 mb-1">
-                  {post.subtitle}
+                  {post.subtitle.length >= 150 
+                  ? post.title.slice(0,150) + "..."
+                  : post.title }
                 </h3>
                 <div className="flex items-center text-sm text-gray-500 gap-4">
                   <span className="flex items-center gap-1">

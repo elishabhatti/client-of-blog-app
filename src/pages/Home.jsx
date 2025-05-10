@@ -125,10 +125,14 @@ const Home = () => {
                   </span>
                 </div>
                 <h2 className="text-lg font-bold text-gray-900 mb-1">
-                  {post.title}
+                  {post.title.length >= 30
+                    ? post.title.slice(0, 30) + "..."
+                    : post.title}
                 </h2>
                 <h3 className="text-sm font-bold text-gray-900 mb-1">
-                  {post.subtitle}
+                       {post.subtitle.length >= 50 
+                  ? post.title.slice(0,50) + "..."
+                  : post.title }
                 </h3>
                 <div className="flex items-center text-sm text-gray-500 gap-4">
                   <span className="flex items-center gap-1">
@@ -138,14 +142,17 @@ const Home = () => {
                     <Eye className="w-4 h-4" /> {post.views || 0}
                   </span>
                   <span className="flex items-center gap-1">
-                    <MessageCircle className="w-4 h-4 cursor-pointer" /> {post.comments.length}
+                    <MessageCircle className="w-4 h-4 cursor-pointer" />{" "}
+                    {post.comments.length}
                   </span>
                   <span className="ml-auto flex items-center gap-4">
                     <button onClick={() => handleSaveArticleSubmit(post._id)}>
                       <Bookmark className="w-4 h-4 cursor-pointer hover:text-black" />
                     </button>
                     <button>
-                      <span className="text-xl cursor-pointer font-light">…</span>
+                      <span className="text-xl cursor-pointer font-light">
+                        …
+                      </span>
                     </button>
                   </span>
                 </div>
