@@ -130,9 +130,9 @@ const Home = () => {
                     : post.title}
                 </h2>
                 <h3 className="text-sm font-bold text-gray-900 mb-1">
-                       {post.subtitle.length >= 50 
-                  ? post.title.slice(0,50) + "..."
-                  : post.title }
+                  {post.subtitle.length >= 50
+                    ? post.title.slice(0, 50) + "..."
+                    : post.title}
                 </h3>
                 <div className="flex items-center text-sm text-gray-500 gap-4">
                   <span className="flex items-center gap-1">
@@ -141,7 +141,10 @@ const Home = () => {
                   <span className="flex items-center gap-1">
                     <Eye className="w-4 h-4" /> {post.views || 0}
                   </span>
-                  <span className="flex items-center gap-1">
+                  <span
+                    onClick={() => navigate(`/article/${post._id}`)}
+                    className="flex items-center gap-1"
+                  >
                     <MessageCircle className="w-4 h-4 cursor-pointer" />{" "}
                     {post.comments.length}
                   </span>
