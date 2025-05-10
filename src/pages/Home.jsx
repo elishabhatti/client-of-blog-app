@@ -130,7 +130,6 @@ const Home = () => {
                 <h3 className="text-sm font-bold text-gray-900 mb-1">
                   {post.subtitle}
                 </h3>
-                <p className="text-gray-600 text-sm mb-3">{post.description}</p>
                 <div className="flex items-center text-sm text-gray-500 gap-4">
                   <span className="flex items-center gap-1">
                     <Star className="w-4 h-4" /> {post.date?.split("T")[0]}
@@ -139,14 +138,14 @@ const Home = () => {
                     <Eye className="w-4 h-4" /> {post.views || 0}
                   </span>
                   <span className="flex items-center gap-1">
-                    <MessageCircle className="w-4 h-4" /> {post.comments.length}
+                    <MessageCircle className="w-4 h-4 cursor-pointer" /> {post.comments.length}
                   </span>
                   <span className="ml-auto flex items-center gap-4">
                     <button onClick={() => handleSaveArticleSubmit(post._id)}>
-                      <Bookmark className="w-4 h-4" />
+                      <Bookmark className="w-4 h-4 cursor-pointer hover:text-black" />
                     </button>
                     <button>
-                      <span className="text-xl font-light">…</span>
+                      <span className="text-xl cursor-pointer font-light">…</span>
                     </button>
                   </span>
                 </div>

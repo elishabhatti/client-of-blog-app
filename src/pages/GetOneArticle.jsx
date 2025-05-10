@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { ChevronLeft } from "lucide-react";
 
 const GetOneArticle = () => {
   const { id } = useParams();
@@ -17,12 +18,12 @@ const GetOneArticle = () => {
           }
         );
 
-        console.log(response);
-        
-        setArticle(response.data.message); // Adjust depending on your backend response structure
+        setArticle(response.data.message);
       } catch (error) {
         toast.error(
-          error.response?.data?.message || error.message || "Error getting article"
+          error.response?.data?.message ||
+            error.message ||
+            "Error getting article"
         );
       }
     };
@@ -36,7 +37,6 @@ const GetOneArticle = () => {
     <div className="max-w-3xl mx-auto pt-20 px-4">
       <h1 className="text-3xl font-bold mb-2">{article.title}</h1>
       <h2 className="text-xl font-semibold mb-4">{article.subtitle}</h2>
-      <p className="text-gray-600 mb-4">{article.description}</p>
       <img
         src={
           article && article.thumbnailUrl.length === 0
@@ -44,8 +44,9 @@ const GetOneArticle = () => {
             : article.thumbnailUrl
         }
         alt="Thumbnail"
-        className="w-full rounded-md"
+        className="w-full my-4 rounded-md"
       />
+      <p className="text-gray-600 mb-4">{article.description}</p>
       <p className="mt-4 text-sm text-gray-500">By {article.username}</p>
     </div>
   );

@@ -82,7 +82,7 @@ const WriteArticle = () => {
               value={article.description}
               onChange={handleArticleChange}
               className="w-full p-2 border rounded"
-              rows="4"
+              rows="5"
               required
             />
           </div>

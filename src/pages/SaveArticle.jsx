@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Bookmark, MessageCircle, Eye, Star, Delete } from "lucide-react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SavedArticle = () => {
   useEffect(() => {
     getAllArticles();
   }, []);
 
+  const navigate = useNavigate();
+  
+  const [username, setUsername] = useState("");
   const [articles, setArticles] = useState([]);
 
   const getAllArticles = async () => {
@@ -19,6 +23,8 @@ const SavedArticle = () => {
         }
       );
 
+      // setUsername(
+      // );
       setArticles(articles.data.articles);
     } catch (error) {
       toast.error(
@@ -50,10 +56,11 @@ const SavedArticle = () => {
   return (
     <div className="flex pt-20 max-w-7xl mx-auto px-4 py-6 gap-10 flex-wrap lg:flex-nowrap">
       <div className="flex-1 ">
-        <h1 className="text-2xl ml-6 font-bold">Saved Article</h1>
+        <h1 className="text-2xl ml-6 font-bold">Saved Article by </h1>
         {articles && articles.length > 0 ? (
           articles.map((post) => (
             <div
+              onClick={() => navigate(`/article/${post._id}`)}
               key={post._id}
               className="flex justify-between items-start bg-white p-6 border-b border-gray-200 hover:bg-gray-50 transition"
             >
@@ -73,7 +80,6 @@ const SavedArticle = () => {
                 <h3 className="text-sm font-bold text-gray-900 mb-1">
                   {post.subtitle}
                 </h3>
-                <p className="text-gray-600 text-sm mb-3">{post.description}</p>
                 <div className="flex items-center text-sm text-gray-500 gap-4">
                   <span className="flex items-center gap-1">
                     <Star className="w-4 h-4" /> {post.date?.split("T")[0]}
@@ -86,10 +92,12 @@ const SavedArticle = () => {
                   </span>
                   <span className="ml-auto flex items-center gap-4">
                     <button>
-                      <span className="text-xl font-light">…</span>
+                      <span className="text-xl cursor-pointer font-light">
+                        …
+                      </span>
                     </button>
                     <button onClick={() => handleDeleteArticle(post._id)}>
-                      <Delete className="w-4 h-4" />
+                      <Delete className="w-4 cursor-pointer h-4" />
                     </button>
                   </span>
                 </div>
