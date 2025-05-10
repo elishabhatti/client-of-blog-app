@@ -9,12 +9,14 @@ import LogoutUser from './pages/LogoutUser'
 import SaveArticle from './pages/SaveArticle'
 import GetOneArticle from './pages/GetOneArticle'
 import Footer from './components/Footer'
+import UpdateProfile from './pages/UpdateProfile'
 
 const App = () => {
   return (
     <div>
       <BrowserRouter>
       <Navbar/>
+        <div className='pt-20'>
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/register" element={<RegisterUser/>}/>
@@ -22,8 +24,10 @@ const App = () => {
         <Route path="/logout" element={<LogoutUser/>}/>
         <Route path="/write" element={<WriteArticle/>}/>
         <Route path="/save" element={<SaveArticle/>}/>
+        <Route path="/profile" element={<UpdateProfile/>}/>
         <Route path="/article/:id" element={<GetOneArticle/>}/>
       </Routes>
+        </div>
       <Footer/>
       </BrowserRouter>
     </div>

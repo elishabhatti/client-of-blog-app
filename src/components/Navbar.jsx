@@ -90,6 +90,12 @@ const Navbar = () => {
                   {isProfileOpen && (
                     <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 border">
                       <NavLink
+                        to="/profile"
+                        className="block px-4 py-2 hover:bg-indigo-50"
+                      >
+                        Profile
+                      </NavLink>
+                      <NavLink
                         to="/settings"
                         className="block px-4 py-2 hover:bg-indigo-50"
                       >

@@ -53,7 +53,7 @@ const SavedArticle = () => {
   };
 
   return (
-    <div className="flex pt-20 max-w-7xl mx-auto px-4 py-6 gap-10 flex-wrap lg:flex-nowrap">
+    <div className="flex max-w-7xl mx-auto px-4 py-6 gap-10 flex-wrap lg:flex-nowrap">
       <div className="flex-1 ">
         <h1 className="text-2xl ml-6 font-bold">
           Saved Article by {username}{" "}

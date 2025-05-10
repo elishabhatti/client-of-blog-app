@@ -105,7 +105,7 @@ const Home = () => {
   };
 
   return (
-    <div className="flex pt-20 max-w-7xl mx-auto px-4 py-6 gap-10 flex-wrap lg:flex-nowrap">
+    <div className="flex max-w-7xl mx-auto px-4 py-6 gap-10 flex-wrap lg:flex-nowrap">
       <div className="flex-1 space-y-6">
         {articles && articles.length > 0 ? (
           [...articles].reverse().map((post) => (
