@@ -43,7 +43,7 @@ const RegisterUser = () => {
   };
 
   return (
-    <div className="bg-white flex justify-center gap-10 pt-40 items-center p-5 text-gray-800">
+    <div className="bg-white flex justify-center gap-10 pt-20 items-center p-5 text-gray-800">
       <div className="w-[35%]">
         <img
           className="rounded-2xl w-full"

@@ -22,7 +22,6 @@ const GetOneArticle = () => {
             withCredentials: true,
           }
         );
-
         setUsername(response.data.message.username);
         setArticle(response.data.message);
       } catch (error) {
@@ -85,7 +84,7 @@ const GetOneArticle = () => {
               <li key={idx} className="p-4 border rounded shadow-sm">
                 <p className="text-gray-700 mb-[-8px]">{c.text}</p>
                 <div className="text-sm text-gray-500 flex justify-between items-center mt-2">
-                  <p>{username || "Anonymous"} </p>
+                  <p>Response by {c.username || "Anonymous"} </p>
                   <p>{new Date(c.createdAt).toLocaleString()}</p>
                 </div>
               </li>

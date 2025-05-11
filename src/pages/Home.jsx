@@ -70,7 +70,7 @@ const Home = () => {
     try {
       const response = await axios.post(
         `http://localhost:3000/api/articles/saveArticle/${id}`,
-        {}, // no body data
+        {},
         {
           withCredentials: true,
         }
@@ -79,26 +79,6 @@ const Home = () => {
     } catch (error) {
       toast.error(
         error.response?.data?.message || error.message || "Error saving article"
-      );
-      console.error(error);
-    }
-  };
-
-  const ShowOnlyOneArticle = async (id) => {
-    try {
-      const response = await axios.get(
-        `http://localhost:3000/api/articles/getOnlyOneArticle/${id}`,
-        {
-          withCredentials: true,
-        }
-      );
-      console.log(response);
-      toast.success(response.data.message);
-    } catch (error) {
-      toast.error(
-        error.response?.data?.message ||
-          error.message ||
-          "Error Getting Article"
       );
       console.error(error);
     }
