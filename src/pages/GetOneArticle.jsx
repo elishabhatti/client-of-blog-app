@@ -34,7 +34,7 @@ const GetOneArticle = () => {
     };
 
     fetchArticle();
-  }, [id]);
+  }, [id, article]);
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
