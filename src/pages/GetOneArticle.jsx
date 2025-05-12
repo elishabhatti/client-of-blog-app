@@ -40,12 +40,12 @@ const GetOneArticle = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
+      await axios.post(
         `http://localhost:3000/api/articles/commentOnArticle`,
         { articleId: id, comment },
         { withCredentials: true }
       );
-      console.log(response);
+
       toast.success("Comment submitted!");
       setComment("");
     } catch (error) {

@@ -1,5 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Bookmark, MessageCircle, Eye, Star } from "lucide-react";
+import { useEffect, useState } from "react";
+import {
+  Bookmark,
+  MessageCircle,
+  Eye,
+  Star,
+  ThumbsUp,
+  ThumbsDown,
+} from "lucide-react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -90,9 +97,8 @@ const Home = () => {
         {articles && articles.length > 0 ? (
           [...articles].reverse().map((post) => (
             <div
-              onClick={() => navigate(`/article/${post._id}`)}
               key={post._id}
-              className="flex cursor-pointer justify-between items-start bg-white p-6 border-b border-gray-200 hover:bg-gray-50 transition"
+              className="flex justify-between items-start bg-white p-6 border-b border-gray-200 hover:bg-gray-50 transition"
             >
               <div className="flex-1 pr-4">
                 <div className="text-sm text-gray-500 mb-1">
@@ -121,6 +127,12 @@ const Home = () => {
                   <span className="flex items-center gap-1">
                     <Eye className="w-4 h-4" /> {post.views || 0}
                   </span>
+                  <span className="flex items-center gap-1">
+                    <ThumbsUp className="w-4 h-4" />
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <ThumbsDown className="w-4 h-4" />
+                  </span>
                   <span
                     onClick={() => navigate(`/article/${post._id}`)}
                     className="flex items-center gap-1"
@@ -140,8 +152,9 @@ const Home = () => {
                   </span>
                 </div>
               </div>
-              <div className="w-48 h-28 flex-shrink-0">
+              <div className="w-48 h-28 flex-shrink-0 cursor-pointer">
                 <img
+                  onClick={() => navigate(`/article/${post._id}`)}
                   src={
                     post.thumbnailUrl.length === 0
                       ? "https://img.freepik.com/free-vector/abstract-red-circle-black-background-technology_1142-9839.jpg"
@@ -158,7 +171,6 @@ const Home = () => {
         )}
       </div>
 
-      {/* Sidebar */}
       <aside className="w-full lg:w-[30%] mt-6 lg:mt-0">
         <h3 className="text-lg font-semibold mb-4">Staff Picks</h3>
         <div className="space-y-5 mb-6">

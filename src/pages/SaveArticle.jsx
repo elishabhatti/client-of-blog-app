@@ -61,9 +61,8 @@ const SavedArticle = () => {
         {articles && articles.length > 0 ? (
           articles.map((post) => (
             <div
-              onClick={() => navigate(`/article/${post._id}`)}
               key={post._id}
-              className="flex justify-between items-start cursor-pointer bg-white p-6 border-b border-gray-200 hover:bg-gray-50 transition"
+              className="flex justify-between items-start bg-white p-6 border-b border-gray-200 hover:bg-gray-50 transition"
             >
               <div className="flex-1 pr-4">
                 <div className="text-sm text-gray-500 mb-1">
@@ -107,8 +106,9 @@ const SavedArticle = () => {
                   </span>
                 </div>
               </div>
-              <div className="w-48 h-28 flex-shrink-0">
+              <div className="w-48 h-28 flex-shrink-0 cursor-pointer">
                 <img
+                  onClick={() => navigate(`/article/${post._id}`)}
                   src={
                     post.thumbnailUrl.length === 0
                       ? "https://img.freepik.com/free-vector/abstract-red-circle-black-background-technology_1142-9839.jpg"
