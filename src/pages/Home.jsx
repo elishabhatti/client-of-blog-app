@@ -73,23 +73,34 @@ const Home = () => {
     }
   };
 
-  const handleSaveArticleSubmit = async (id) => {
-    try {
-      const response = await axios.post(
-        `http://localhost:3000/api/articles/saveArticle/${id}`,
-        {},
-        {
-          withCredentials: true,
-        }
-      );
-      toast.success(response.data.message);
-    } catch (error) {
-      toast.error(
-        error.response?.data?.message || error.message || "Error saving article"
-      );
-      console.error(error);
-    }
-  };
+ const handleLikePost = async (id) => {
+  try {
+    const res = await axios.post(
+      `http://localhost:3000/api/articles/like/${id}`,
+      {},
+      { withCredentials: true }
+    );
+    toast.success(res.data.message);
+    getAllArticles(); // Refresh state
+  } catch (err) {
+    toast.error(err.response?.data?.message || "Error liking article");
+  }
+};
+
+const handleDislikePost = async (id) => {
+  try {
+    const res = await axios.post(
+      `http://localhost:3000/api/articles/dislike/${id}`,
+      {},
+      { withCredentials: true }
+    );
+    toast.success(res.data.message);
+    getAllArticles(); // Refresh state
+  } catch (err) {
+    toast.error(err.response?.data?.message || "Error disliking article");
+  }
+};
+
 
   return (
     <div className="flex max-w-7xl mx-auto px-4 py-6 gap-10 flex-wrap lg:flex-nowrap">
@@ -127,12 +138,18 @@ const Home = () => {
                   <span className="flex items-center gap-1">
                     <Eye className="w-4 h-4" /> {post.views || 0}
                   </span>
-                  <span className="flex items-center gap-1">
-                    <ThumbsUp className="w-4 h-4" />
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <ThumbsDown className="w-4 h-4" />
-                  </span>
+                  <ThumbsUp
+                    onClick={() => handleLikePost(post._id)}
+                    className="w-4 h-4 cursor-pointer"
+                  />
+                  <span>{post.likes.length}</span>
+
+                  <ThumbsDown
+                    onClick={() => handleDislikePost(post._id)}
+                    className="w-4 h-4 cursor-pointer"
+                  />
+                  <span>{post.dislikes.length}</span>
+
                   <span
                     onClick={() => navigate(`/article/${post._id}`)}
                     className="flex items-center gap-1"
