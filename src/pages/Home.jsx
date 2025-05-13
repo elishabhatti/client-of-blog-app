@@ -75,7 +75,7 @@ const Home = () => {
 
   const handleSaveArticleSubmit = async (id) => {
     try {
-      await axios.post(
+      const response = await axios.post(
         `http://localhost:3000/api/articles/saveArticle/${id}`,
         {},
         {
@@ -101,7 +101,7 @@ const Home = () => {
   }
 
   async function handleDislikePost(id) {
-    const response = await axios.post(
+    await axios.post(
       `http://localhost:3000/api/articles/addDislike/${id}`,
       {},
       {
