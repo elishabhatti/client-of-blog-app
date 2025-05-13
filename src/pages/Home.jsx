@@ -73,34 +73,27 @@ const Home = () => {
     }
   };
 
- const handleLikePost = async (id) => {
-  try {
-    const res = await axios.post(
-      `http://localhost:3000/api/articles/like/${id}`,
+  const handleLikePost = async (id) => {
+    const response = await axios.post(
+      `http://localhost:3000/api/articles/addLike/${id}`,
       {},
-      { withCredentials: true }
+      {
+        withCredentials: true,
+      }
     );
-    toast.success(res.data.message);
-    getAllArticles(); // Refresh state
-  } catch (err) {
-    toast.error(err.response?.data?.message || "Error liking article");
-  }
-};
+    console.log(response);
+  };
 
-const handleDislikePost = async (id) => {
-  try {
-    const res = await axios.post(
-      `http://localhost:3000/api/articles/dislike/${id}`,
+  const handleDislikePost = async (id) => {
+    const response = await axios.post(
+      `http://localhost:3000/api/articles/addDislike/${id}`,
       {},
-      { withCredentials: true }
+      {
+        withCredentials: true,
+      }
     );
-    toast.success(res.data.message);
-    getAllArticles(); // Refresh state
-  } catch (err) {
-    toast.error(err.response?.data?.message || "Error disliking article");
-  }
-};
-
+    console.log(response);
+  };
 
   return (
     <div className="flex max-w-7xl mx-auto px-4 py-6 gap-10 flex-wrap lg:flex-nowrap">
