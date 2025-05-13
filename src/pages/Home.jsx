@@ -69,11 +69,29 @@ const Home = () => {
         "Error While Get Articles:",
         error.response?.data || error.message
       );
+      console.error(error);
     }
   };
 
+  const handleSaveArticleSubmit = async (id) => {
+    try {
+      await axios.post(
+        `http://localhost:3000/api/articles/saveArticle/${id}`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      toast.success(response.data.message);
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || error.message || "Error saving article"
+      );
+      console.error(error);
+    }
+  };
   async function handleLikePost(id) {
-    const response = await axios.post(
+    await axios.post(
       `http://localhost:3000/api/articles/addLike/${id}`,
       {},
       {
@@ -129,18 +147,20 @@ const Home = () => {
                   <span className="flex items-center gap-1">
                     <Eye className="w-4 h-4" /> {post.views || 0}
                   </span>
-                  <ThumbsUp
-                    onClick={() => handleLikePost(post._id)}
-                    className="w-4 h-4 cursor-pointer"
-                  />
-                  <span>{post.likes.length}</span>
-
-                  <ThumbsDown
-                    onClick={() => handleDislikePost(post._id)}
-                    className="w-4 h-4 cursor-pointer"
-                  />
-                  <span>{post.dislikes.length}</span>
-
+                  <span className="flex items-center gap-1">
+                    <ThumbsUp
+                      onClick={() => handleLikePost(post._id)}
+                      className="w-4 h-4"
+                    />
+                    {post.likes.length}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <ThumbsDown
+                      onClick={() => handleDislikePost(post._id)}
+                      className="w-4 h-4"
+                    />
+                    {post.dislikes.length}
+                  </span>
                   <span
                     onClick={() => navigate(`/article/${post._id}`)}
                     className="flex items-center gap-1"
