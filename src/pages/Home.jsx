@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 const Home = () => {
   useEffect(() => {
     getAllArticles();
-  }, []);
+  }, [handleLikePost, handleDislikePost]);
 
   const navigate = useNavigate();
 
@@ -69,11 +69,10 @@ const Home = () => {
         "Error While Get Articles:",
         error.response?.data || error.message
       );
-      console.error(error);
     }
   };
 
-  const handleLikePost = async (id) => {
+  async function handleLikePost(id) {
     const response = await axios.post(
       `http://localhost:3000/api/articles/addLike/${id}`,
       {},
@@ -81,10 +80,9 @@ const Home = () => {
         withCredentials: true,
       }
     );
-    console.log(response);
-  };
+  }
 
-  const handleDislikePost = async (id) => {
+  async function handleDislikePost(id) {
     const response = await axios.post(
       `http://localhost:3000/api/articles/addDislike/${id}`,
       {},
@@ -93,7 +91,7 @@ const Home = () => {
       }
     );
     console.log(response);
-  };
+  }
 
   return (
     <div className="flex max-w-7xl mx-auto px-4 py-6 gap-10 flex-wrap lg:flex-nowrap">
