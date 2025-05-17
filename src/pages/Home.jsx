@@ -82,6 +82,7 @@ const Home = () => {
           withCredentials: true,
         }
       );
+      navigate("/save");
       toast.success(response.data.message);
     } catch (error) {
       toast.error(
