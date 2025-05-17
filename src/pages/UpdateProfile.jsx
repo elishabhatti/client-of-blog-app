@@ -8,11 +8,10 @@ import { NavLink } from "react-router-dom";
 const UpdateProfile = () => {
   const [id, setId] = useState("");
   const [userData, setUserData] = useState({
+    username: "",
     avatar: "",
     bio: "",
-    username: "",
   });
-
   useEffect(() => {
     getUserDataFrom();
   }, []);
@@ -25,7 +24,14 @@ const UpdateProfile = () => {
           withCredentials: true,
         }
       );
+
       console.log(res);
+      setUserData({
+        username: res.data.user.username,
+        avatar: res.data.user.avatar || "",
+        bio: res.data.user.bio || "",
+      });
+
       setId(res.data.user._id);
     } catch (error) {
       toast.error(error.response?.data?.message || error.message);
@@ -64,16 +70,15 @@ const UpdateProfile = () => {
       <div className="w-[30%] border-l pl-6">
         <div className="flex flex-col items-start">
           <img
-            src="/your-profile-icon.png"
+            src={userData.avatar}
             alt="profile"
             className="w-16 h-16 rounded-full bg-black mb-4"
           />
           <p className="text-lg font-semibold">
-            Elishajameel <span className="text-sm font-light">he</span>
+            {userData.username}
+            <span className="text-sm font-light">he</span>
           </p>
-          <p className="mt-2 text-sm text-gray-700">
-            I am a Web Developer enjoys creating full fledged web app
-          </p>
+          <p className="mt-2 text-sm text-gray-700">{userData.bio}</p>
           <button className="text-green-600 mt-2 hover:underline">
             <NavLink to={`/edit-profile/${id}`}>Edit Profile</NavLink>
           </button>
