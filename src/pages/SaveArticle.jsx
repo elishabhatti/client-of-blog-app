@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Bookmark, MessageCircle, Eye, Star, Delete } from "lucide-react";
+import {
+  Bookmark,
+  MessageCircle,
+  Eye,
+  Star,
+  Delete,
+  ThumbsDown,
+  ThumbsUp,
+} from "lucide-react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 const SavedArticle = () => {
   useEffect(() => {
     getAllArticles();
-  }, []);
+  }, [handleLikePost, handleDislikePost]);
 
   const navigate = useNavigate();
 
@@ -52,6 +60,27 @@ const SavedArticle = () => {
     }
   };
 
+  async function handleLikePost(id) {
+    await axios.post(
+      `http://localhost:3000/api/articles/addLike/${id}`,
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  async function handleDislikePost(id) {
+    await axios.post(
+      `http://localhost:3000/api/articles/addDislike/${id}`,
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+    console.log(response);
+  }
+
   return (
     <div className="flex max-w-7xl mx-auto px-4 py-6 gap-10 flex-wrap lg:flex-nowrap">
       <div className="flex-1 ">
@@ -93,6 +122,20 @@ const SavedArticle = () => {
                   </span>
                   <span className="flex items-center gap-1">
                     <MessageCircle className="w-4 h-4" /> {post.comments.length}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <ThumbsUp
+                      onClick={() => handleLikePost(post._id)}
+                      className="w-4 h-4 cursor-pointer"
+                    />
+                    {post.likes.length}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <ThumbsDown
+                      onClick={() => handleDislikePost(post._id)}
+                      className="w-4 h-4 cursor-pointer"
+                    />
+                    {post.dislikes.length}
                   </span>
                   <span className="ml-auto flex items-center gap-4">
                     <button>

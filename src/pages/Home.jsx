@@ -150,14 +150,14 @@ const Home = () => {
                   <span className="flex items-center gap-1">
                     <ThumbsUp
                       onClick={() => handleLikePost(post._id)}
-                      className="w-4 h-4"
+                      className="w-4 h-4 cursor-pointer"
                     />
                     {post.likes.length}
                   </span>
                   <span className="flex items-center gap-1">
                     <ThumbsDown
                       onClick={() => handleDislikePost(post._id)}
-                      className="w-4 h-4"
+                      className="w-4 h-4 cursor-pointer"
                     />
                     {post.dislikes.length}
                   </span>
