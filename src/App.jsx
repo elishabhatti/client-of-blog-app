@@ -10,6 +10,7 @@ import SaveArticle from './pages/SaveArticle'
 import GetOneArticle from './pages/GetOneArticle'
 import Footer from './components/Footer'
 import UpdateProfile from './pages/UpdateProfile'
+import EditProfile from './pages/EditProfile'
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/save" element={<SaveArticle/>}/>
         <Route path="/profile" element={<UpdateProfile/>}/>
         <Route path="/article/:id" element={<GetOneArticle/>}/>
+        <Route path="/edit-profile/:id" element={<EditProfile/>}/>
       </Routes>
         </div>
       <Footer/>
