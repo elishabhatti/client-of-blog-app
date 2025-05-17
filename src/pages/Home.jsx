@@ -136,10 +136,10 @@ const Home = () => {
                     ? post.title.slice(0, 30) + "..."
                     : post.title}
                 </h2>
-                <h3 className="text-sm font-bold text-gray-900 mb-1">
-                  {post.subtitle.length >= 50
-                    ? post.title.slice(0, 50) + "..."
-                    : post.title}
+                <h3 className="text-sm text-gray-900 mb-1">
+                  {post.subtitle.length >= 50 
+                    ? post.subtitle.slice(0, 50) + "..."
+                    : post.subtitle}
                 </h3>
                 <div className="flex items-center text-sm text-gray-500 gap-4">
                   <span className="flex items-center gap-1">

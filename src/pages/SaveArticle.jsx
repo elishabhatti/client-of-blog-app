@@ -1,46 +1,30 @@
-import React, { useEffect, useState } from "react";
-import {
-  Bookmark,
-  MessageCircle,
-  Eye,
-  Star,
-  Delete,
-  ThumbsDown,
-  ThumbsUp,
-} from "lucide-react";
+import  { useEffect, useState } from "react";
+import { MessageCircle, Eye, Star, Delete, ThumbsDown, ThumbsUp } from "lucide-react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const SavedArticle = () => {
-  useEffect(() => {
-    getAllArticles();
-  }, [handleLikePost, handleDislikePost]);
-
   const navigate = useNavigate();
-
   const [username, setUsername] = useState("");
   const [articles, setArticles] = useState([]);
 
-  const getAllArticles = async () => {
+  async function getAllArticles() {
     try {
-      const articles = await axios.get(
-        "http://localhost:3000/api/articles/saveArticle",
-        {
-          withCredentials: true,
-        }
-      );
-
-      setUsername(articles.data.articles[0].username);
-      setArticles(articles.data.articles);
+      const res = await axios.get("http://localhost:3000/api/articles/saveArticle", {
+        withCredentials: true,
+      });
+      setUsername(res.data.articles[0]?.username || "Unknown");
+      setArticles(res.data.articles);
     } catch (error) {
-      toast.error(
-        "Error While Get Articles:",
-        error.response?.data || error.message
-      );
+      toast.error(error.response?.data?.message || error.message);
       console.error(error);
     }
-  };
+  }
+
+  useEffect(() => {
+    getAllArticles();
+  }, []);
 
   const handleDeleteArticle = async (id) => {
     try {
@@ -49,11 +33,8 @@ const SavedArticle = () => {
         { articleId: id },
         { withCredentials: true }
       );
-
       toast.success(res.data.message);
-      setArticles((prevArticles) =>
-        prevArticles.filter((article) => article._id !== id)
-      );
+      setArticles((prevArticles) => prevArticles.filter((article) => article._id !== id));
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to remove article");
       console.error(error);
@@ -61,32 +42,30 @@ const SavedArticle = () => {
   };
 
   async function handleLikePost(id) {
-    await axios.post(
-      `http://localhost:3000/api/articles/addLike/${id}`,
-      {},
-      {
+    try {
+      await axios.post(`http://localhost:3000/api/articles/addLike/${id}`, {}, {
         withCredentials: true,
-      }
-    );
+      });
+    } catch (error) {
+      console.error("Like failed:", error);
+    }
   }
 
   async function handleDislikePost(id) {
-    await axios.post(
-      `http://localhost:3000/api/articles/addDislike/${id}`,
-      {},
-      {
+    try {
+      const res = await axios.post(`http://localhost:3000/api/articles/addDislike/${id}`, {}, {
         withCredentials: true,
-      }
-    );
-    console.log(response);
+      });
+      console.log(res.data.message); // optional
+    } catch (error) {
+      console.error("Dislike failed:", error);
+    }
   }
 
   return (
     <div className="flex max-w-7xl mx-auto px-4 py-6 gap-10 flex-wrap lg:flex-nowrap">
-      <div className="flex-1 ">
-        <h1 className="text-2xl ml-6 font-bold">
-          Saved Article by {username}{" "}
-        </h1>
+      <div className="flex-1">
+        <h1 className="text-2xl ml-6 font-bold">Saved Articles by {username}</h1>
         {articles && articles.length > 0 ? (
           articles.map((post) => (
             <div
@@ -108,10 +87,10 @@ const SavedArticle = () => {
                     ? post.title.slice(0, 30) + "..."
                     : post.title}
                 </h2>
-                <h3 className="text-sm font-bold text-gray-900 mb-1">
+                <h3 className="text-sm text-gray-900 mb-1">
                   {post.subtitle.length >= 50
-                    ? post.title.slice(0, 50) + "..."
-                    : post.title}
+                    ? post.subtitle.slice(0, 50) + "..."
+                    : post.subtitle}
                 </h3>
                 <div className="flex items-center text-sm text-gray-500 gap-4">
                   <span className="flex items-center gap-1">
@@ -124,24 +103,16 @@ const SavedArticle = () => {
                     <MessageCircle className="w-4 h-4" /> {post.comments.length}
                   </span>
                   <span className="flex items-center gap-1">
-                    <ThumbsUp
-                      onClick={() => handleLikePost(post._id)}
-                      className="w-4 h-4 cursor-pointer"
-                    />
+                    <ThumbsUp onClick={() => handleLikePost(post._id)} className="w-4 h-4 cursor-pointer" />
                     {post.likes.length}
                   </span>
                   <span className="flex items-center gap-1">
-                    <ThumbsDown
-                      onClick={() => handleDislikePost(post._id)}
-                      className="w-4 h-4 cursor-pointer"
-                    />
+                    <ThumbsDown onClick={() => handleDislikePost(post._id)} className="w-4 h-4 cursor-pointer" />
                     {post.dislikes.length}
                   </span>
                   <span className="ml-auto flex items-center gap-4">
                     <button>
-                      <span className="text-xl cursor-pointer font-light">
-                        …
-                      </span>
+                      <span className="text-xl cursor-pointer font-light">…</span>
                     </button>
                     <button onClick={() => handleDeleteArticle(post._id)}>
                       <Delete className="w-4 cursor-pointer h-4" />
