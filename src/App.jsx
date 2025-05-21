@@ -9,7 +9,7 @@ import LogoutUser from './pages/LogoutUser'
 import SaveArticle from './pages/SaveArticle'
 import GetOneArticle from './pages/GetOneArticle'
 import Footer from './components/Footer'
-import UpdateProfile from './pages/UpdateProfile'
+import UpdateProfile from './pages/Profile'
 import EditProfile from './pages/EditProfile'
 
 const App = () => {

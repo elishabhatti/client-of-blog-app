@@ -39,11 +39,15 @@ const UpdateProfile = () => {
     }
   }
 
+  const handleFullViewProfile = (id) => {
+    console.log(id);
+  };
+
   return (
     <div className="w-full flex justify-between px-40 py-6">
       {/* Left Column */}
       <div className="w-[65%]">
-        <h1 className="text-4xl font-bold mb-2">Elishajameel</h1>
+        <h1 className="text-4xl font-bold mb-2">{userData.username}</h1>
         <div className="flex space-x-6 border-b border-gray-300 mb-6">
           <button className="py-2 border-b-2 border-black font-medium">
             Home
@@ -54,7 +58,7 @@ const UpdateProfile = () => {
         {/* Reading List Box */}
         <div className="flex border rounded-lg overflow-hidden shadow-sm">
           <div className="p-4 flex-1">
-            <p className="text-sm text-gray-500">Elishajameel</p>
+            <p className="text-sm text-gray-500">{userData.username}</p>
             <h2 className="text-xl font-semibold mb-1">Reading list</h2>
             <p className="text-sm text-gray-500">1 story 🔒</p>
           </div>
@@ -68,12 +72,14 @@ const UpdateProfile = () => {
 
       {/* Right Column */}
       <div className="w-[30%] border-l pl-6">
-        <div className="flex flex-col items-start">
+        <div className="flex flex-col items-center">
           <img
+            onClick={() => handleFullViewProfile(id)}
             src={userData.avatar}
-            alt="profile"
-            className="w-16 h-16 rounded-full bg-black mb-4"
+            alt="Profile"
+            className="w-30 h-30 cursor-pointer rounded-full bg-black mb-4 object-cover ring-2 ring-white shadow-sm"
           />
+
           <p className="text-lg font-semibold">
             {userData.username}
             <span className="text-sm font-light">he</span>
