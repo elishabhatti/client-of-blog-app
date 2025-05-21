@@ -23,7 +23,7 @@ const EditProfile = () => {
           }
         );
         console.log(res);
-        
+
         setUserData({
           username: res.data.user.username,
           avatar: res.data.user.avatar || "",
