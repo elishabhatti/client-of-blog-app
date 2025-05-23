@@ -96,7 +96,8 @@ const UpdateProfile = () => {
             <h2 className="text-xl font-semibold mb-1">Reading list</h2>
             <p className="text-sm text-gray-500">1 story 🔒</p>
           </div>
-             </div>
+        </div>
+        <div className="px-4 py-2">Written By {userData.username} </div>
 
         <div className="flex-1 space-y-6">
           {articles && articles.length > 0 ? (
