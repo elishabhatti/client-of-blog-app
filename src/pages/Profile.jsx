@@ -96,12 +96,7 @@ const UpdateProfile = () => {
             <h2 className="text-xl font-semibold mb-1">Reading list</h2>
             <p className="text-sm text-gray-500">1 story 🔒</p>
           </div>
-          <img
-            src="/path-to-your-image.jpg"
-            alt="Reading list"
-            className="w-full sm:w-40 h-32 sm:h-auto object-cover"
-          />
-        </div>
+             </div>
 
         <div className="flex-1 space-y-6">
           {articles && articles.length > 0 ? (
@@ -167,7 +162,7 @@ const UpdateProfile = () => {
                           to={`/editArticle/${id}`}
                           className="text-sm sm:text-base text-blue-600 hover:underline"
                         >
-                          Edit Profile
+                          Edit Article
                         </NavLink>
                       </button>
                     </span>
