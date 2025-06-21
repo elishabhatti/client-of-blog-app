@@ -5,10 +5,12 @@ import "react-toastify/dist/ReactToastify.css";
 import App from "./App.jsx";
 import { Bounce, ToastContainer } from "react-toastify";
 import { AuthProvider } from "./store/auth.jsx";
+import { ArticleContext } from "./store/article.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProvider>
+    <ArticleContext>
       <App />
       <ToastContainer
         position="top-right"
@@ -23,6 +25,7 @@ createRoot(document.getElementById("root")).render(
         theme="light"
         transition={Bounce}
       />
+    </ArticleContext>
     </AuthProvider>
   </StrictMode>
 );

@@ -13,6 +13,7 @@ import {
 
 const UpdateProfile = () => {
   const [id, setId] = useState("");
+  const [articleId, setArticleId] = useState("")
   const [articles, setArticles] = useState([]);
   const [userData, setUserData] = useState({
     username: "",
@@ -31,7 +32,7 @@ const UpdateProfile = () => {
       const res = await axios.get(
         "http://localhost:3000/api/users/getUserData",
         { withCredentials: true }
-      );
+      );      
 
       setUserData({
         username: res.data.user.username,
@@ -52,6 +53,7 @@ const UpdateProfile = () => {
         `http://localhost:3000/api/users/getAllArticeOfUser/${id}`,
         { withCredentials: true }
       );
+      console.log(res.data.message);
       setArticles(res.data.message);
     } catch (error) {
       toast.error(error.response?.data?.message || error.message);
@@ -69,7 +71,17 @@ const UpdateProfile = () => {
         `http://localhost:3000/api/articles/editcArtile/${id}`,
         { withCredentials: true }
       );
-      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const handleDeleteArticle = async (id) => {
+    try {
+      const res = await axios.delete(
+        `http://localhost:3000/api/articles/deleteArtile/${id}`,
+        { withCredentials: true }
+      );
+      console.log(res.data.message);
     } catch (error) {
       console.error(error);
     }
@@ -157,6 +169,14 @@ const UpdateProfile = () => {
                     <span className="ml-auto flex items-center gap-4 mt-2 sm:mt-0">
                       <button onClick={() => handleSaveArticleSubmit(post._id)}>
                         <Bookmark className="w-4 h-4 cursor-pointer hover:text-black" />
+                      </button>
+                      <button onClick={() => handleDeleteArticle(id)}>
+                        <NavLink
+                          to={`/deleteArticle/${id}`}
+                          className="text-sm sm:text-base text-blue-600 hover:underline"
+                        >
+                          Delete Article
+                        </NavLink>
                       </button>
                       <button onClick={() => handleEditArticle(id)}>
                         <NavLink
