@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import { toast } from "react-toastify";
+import { axiosInterface } from "../axios";
 
 const GetOneArticle = () => {
   const { id } = useParams();
@@ -16,11 +16,8 @@ const GetOneArticle = () => {
   useEffect(() => {
     const fetchArticle = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:3000/api/articles/getOnlyOneArticle/${id}`,
-          {
-            withCredentials: true,
-          }
+        const response = await axiosInterface.get(
+          `articles/getOnlyOneArticle/${id}`
         );
         setUsername(response.data.message.username);
         setArticle(response.data.message);
@@ -40,11 +37,10 @@ const GetOneArticle = () => {
     e.preventDefault();
 
     try {
-      await axios.post(
-        `http://localhost:3000/api/articles/commentOnArticle`,
-        { articleId: id, comment },
-        { withCredentials: true }
-      );
+      await axiosInterface.post(`articles/commentOnArticle`, {
+        articleId: id,
+        comment,
+      });
 
       toast.success("Comment submitted!");
       setComment("");
